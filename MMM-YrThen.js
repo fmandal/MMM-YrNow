@@ -199,6 +199,7 @@ Module.register('MMM-YrThen', {
 
 // SHOWING DAILY FORECAST
         else{
+            var x = 0;
             for (var f in this.dataFromYr) {
                 var newData = this.dataFromYr[f];
                 var checkTime = moment(newData.start).format("HH");
@@ -206,6 +207,7 @@ Module.register('MMM-YrThen', {
                 var show = false;
                 if(f < this.config.numDetails && this.config.details == true) show = true;
                 if(checkTime > 11 && checkTime < 15) show = true;
+                if(x >= this.config.numDays) show = false;
                 if(show == true){
                     var row = document.createElement('tr');
                     table.appendChild(row);
@@ -237,6 +239,8 @@ Module.register('MMM-YrThen', {
                     minTempCell.innerHTML = this.round(newData.precipitation.value, 1);
                     minTempCell.className = "align-right yrthen-prec dimmed";
                     row.appendChild(minTempCell);
+
+                    x++;
                 }
             }
         }
